@@ -1,0 +1,7 @@
+# 내부 백업 (개편 전 원본) — 저장소에 포함하지 않음
+backup/
+
+# OS / 편집기 산출물
+Thumbs.db
+.DS_Store
+.vscode/

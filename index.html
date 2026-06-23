@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tasky · 할 일 관리</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="layout">
+    <!-- ===== 사이드바 ===== -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar__brand">
+        <span class="sidebar__logo">✓</span>
+        <span class="sidebar__name">Tasky</span>
+      </div>
+
+      <nav class="sidebar__section">
+        <p class="sidebar__heading">보기</p>
+        <button class="navitem is-active" data-filter="all">
+          <span class="navitem__icon">▤</span> 전체
+          <span class="navitem__count" id="navCountAll">0</span>
+        </button>
+        <button class="navitem" data-filter="active">
+          <span class="navitem__icon">◷</span> 진행 중
+          <span class="navitem__count" id="navCountActive">0</span>
+        </button>
+        <button class="navitem" data-filter="completed">
+          <span class="navitem__icon">✓</span> 완료
+          <span class="navitem__count" id="navCountCompleted">0</span>
+        </button>
+      </nav>
+
+      <nav class="sidebar__section">
+        <p class="sidebar__heading">카테고리</p>
+        <button class="navitem is-active" data-category="all">전체</button>
+        <button class="navitem" data-category="업무">
+          <span class="dot dot--업무"></span> 업무
+        </button>
+        <button class="navitem" data-category="개인">
+          <span class="dot dot--개인"></span> 개인
+        </button>
+        <button class="navitem" data-category="공부">
+          <span class="dot dot--공부"></span> 공부
+        </button>
+      </nav>
+
+      <div class="sidebar__footer">
+        <p>로컬에 안전하게 저장됩니다.</p>
+      </div>
+    </aside>
+
+    <!-- ===== 메인 ===== -->
+    <main class="main">
+      <!-- 상단바 -->
+      <header class="topbar">
+        <button class="topbar__menu" id="menuToggle" aria-label="메뉴">☰</button>
+        <div>
+          <h1 class="topbar__title">할 일 관리</h1>
+          <p class="topbar__date" id="todayDate"></p>
+        </div>
+      </header>
+
+      <!-- 요약 카드 -->
+      <section class="cards">
+        <article class="card">
+          <p class="card__label">전체</p>
+          <p class="card__value" id="statTotal">0</p>
+          <p class="card__sub">등록된 할 일</p>
+        </article>
+        <article class="card card--active">
+          <p class="card__label">진행 중</p>
+          <p class="card__value" id="statActive">0</p>
+          <p class="card__sub">아직 남은 일</p>
+        </article>
+        <article class="card card--done">
+          <p class="card__label">완료</p>
+          <p class="card__value" id="statCompleted">0</p>
+          <p class="card__sub">끝낸 일</p>
+        </article>
+        <article class="card card--rate">
+          <p class="card__label">완료율</p>
+          <p class="card__value" id="statRate">0%</p>
+          <div class="card__bar"><div class="card__fill" id="statFill"></div></div>
+        </article>
+      </section>
+
+      <!-- 입력 영역 -->
+      <section class="panel">
+        <form id="todoForm" class="addform">
+          <input
+            type="text"
+            id="todoInput"
+            class="addform__text"
+            placeholder="할 일을 입력하세요"
+            autocomplete="off"
+            maxlength="100"
+          />
+          <select id="categorySelect" class="addform__field">
+            <option value="업무">업무</option>
+            <option value="개인">개인</option>
+            <option value="공부">공부</option>
+          </select>
+          <input type="date" id="dueInput" class="addform__field" />
+          <button type="submit" class="addform__btn">추가</button>
+        </form>
+      </section>
+
+      <!-- 툴바: 검색 / 정렬 / 완료 비우기 -->
+      <section class="toolbar">
+        <div class="toolbar__search">
+          <span class="toolbar__search-icon">⌕</span>
+          <input
+            type="text"
+            id="searchInput"
+            class="toolbar__search-input"
+            placeholder="할 일 검색..."
+            autocomplete="off"
+          />
+        </div>
+        <select id="sortSelect" class="toolbar__sort">
+          <option value="created">등록순</option>
+          <option value="due">마감일 임박순</option>
+          <option value="category">카테고리순</option>
+        </select>
+        <button id="clearCompleted" class="toolbar__clear">완료 비우기</button>
+      </section>
+
+      <!-- 목록 -->
+      <section class="list-area">
+        <ul id="todoList" class="todo-list"></ul>
+        <div id="emptyMessage" class="empty">
+          <span class="empty__icon">🗒️</span>
+          <p class="empty__text">표시할 할 일이 없습니다.</p>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
